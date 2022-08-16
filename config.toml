@@ -1,0 +1,8 @@
+[api]
+port = "9000"
+
+[database]
+host = "localhost"
+user = "luccas"
+pass = "123456"
+name = "api_users"

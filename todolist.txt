@@ -1,0 +1,83 @@
+config.toml --> Infos do database para criar o database no postgres
+- Criar user, database, table, e garantir os acessos
+
+MEtodos para criar
+
+POST /user -> Cria user pelo body
+    Obrigatorio:
+        body {
+            "id": 0,
+            "username": "string",
+            "firstName": "string",
+            "lastName": "string",
+            "email": "string",
+            "password": "string",
+            "phone": "string",
+            "userStatus": 0
+            }
+    Resposta:
+        201 usuario criado
+        400 request nao possui body
+
+POST /user/createWithArray -> Cria uma lista de usuarios de acordo com o Array
+    Obrigatorio:
+        body [
+        {
+        "id": 0,
+        "username": "string",
+        "firstName": "string",
+        "lastName": "string",
+        "email": "string",
+        "password": "string",
+        "phone": "string",
+        "userStatus": 0
+        }
+        ]
+
+    Resposta:
+        201 Todos os usuários criados
+        400 request nao possui body
+
+GET /user/{username}
+    Obrigatorio:
+        username string
+    Resposta:
+        200 operação realizada com sucesso
+        {
+        "id": 0,
+        "username": "string",
+        "firstName": "string",
+        "lastName": "string",
+        "email": "string",
+        "password": "string",
+        "phone": "string",
+        "userStatus": 0
+        }
+        400 username inválido
+        404 Usuário não encontrado
+
+PUT /user/{username}
+    Obrigatorio:
+        username string
+        body {
+            "id": 0,
+            "username": "string",
+            "firstName": "string",
+            "lastName": "string",
+            "email": "string",
+            "password": "string",
+            "phone": "string",
+            "userStatus": 0
+            }
+    Resposta:
+        200 usuário atualizado
+        400 username inválido
+        404 Usuário não encontrado
+
+DELETE /user/{username}
+    Obrigatorio:
+        username string
+    Resposta:
+        200 usuário apagado
+        400 username inválido
+        404 Usuário não encontrado
