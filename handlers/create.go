@@ -39,7 +39,11 @@ func ValidateBody(w http.ResponseWriter, r *http.Request) (bool, error) {
 
 	for userAttribute, pattern := range mapBodyValidPatterns {
 		match, err := regexp.MatchString(pattern, bodyString)
-		if err != nil || !match {
+		if err != nil{
+			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+			return false, err
+		}
+		if !match {
 			http.Error(w, fmt.Sprintf("400 - O atributo %s não está no body", userAttribute), http.StatusBadRequest)
 			return false, err
 		}
