@@ -1,10 +1,15 @@
 package models
 
-import "github.com/luccascleann/projeto_api/db"
+import (
+	"fmt"
+
+	"github.com/luccascleann/projeto_api/db"
+)
 
 func Update(username string, user User) (int64, error) {
 	conn, err := db.OpenConnection()
 	if err != nil {
+		fmt.Printf("Erro ao abrir o banco de dados: %v", err)
 		return 0, err
 	}
 	defer conn.Close()

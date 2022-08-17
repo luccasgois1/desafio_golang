@@ -11,6 +11,16 @@ import (
 
 func Update(w http.ResponseWriter, r *http.Request) {
 	username := chi.URLParam(r, "username")
+	//Validate username
+	if isUserNameValid, err := ValidateUserName(w, username); !isUserNameValid || err != nil {
+		log.Printf("Erro ao validar o username: %v", err)
+		return
+	}
+	// Validate body
+	if isBodyValid, err := ValidateBody(w, r); !isBodyValid || err != nil {
+		log.Printf("Erro ao validar o body: %v", err)
+		return
+	}
 
 	var user models.User
 
