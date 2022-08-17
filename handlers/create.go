@@ -36,7 +36,7 @@ func ValidateBody(w http.ResponseWriter, r *http.Request) (bool, error) {
 		http.Error(w, "400 - request não possui body", http.StatusBadRequest)
 		return false, err
 	}
-	
+
 	for userAttribute, pattern := range mapBodyValidPatterns {
 		match, err := regexp.MatchString(pattern, bodyString)
 		if err != nil || !match {
@@ -58,6 +58,7 @@ func Create(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil {
 		log.Printf("Erro ao fazer decode do json: %v", err)
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
 
