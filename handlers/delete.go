@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"encoding/json"
 	"log"
 	"net/http"
 
@@ -11,6 +10,10 @@ import (
 
 func Delete(w http.ResponseWriter, r *http.Request) {
 	username := chi.URLParam(r, "username")
+	if isUserNameValid, err := ValidateUserName(w, username); !isUserNameValid || err != nil {
+		log.Printf("Erro ao validar o username: %v", err)
+		return
+	}
 
 	rows, err := models.Delete(username)
 	if err != nil {
@@ -21,13 +24,11 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 
 	if rows > 1 {
 		log.Printf("Error: foram removidos %d registros", rows)
+	} else if rows == 0 {
+		http.Error(w, "404 - Usuário não encontrado", http.StatusNotFound)
+	} else {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("200 - Usuário apagado"))
 	}
 
-	resp := map[string]any{
-		"StatusCode": 200,
-		"Message":    "usuário apagado",
-	}
-
-	w.Header().Add("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(resp)
 }
