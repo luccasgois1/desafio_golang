@@ -17,6 +17,7 @@ func main() {
 
 	r := chi.NewRouter()
 	r.Post("/user", handlers.Create)
+	r.Post("/user/createWithArray", handlers.CreateWithArray)
 	r.Put("/user/{username}", handlers.Update)
 	r.Delete("/user/{username}", handlers.Delete)
 	r.Get("/user", handlers.List)
