@@ -13,7 +13,7 @@ func Insert(user User) (err error) {
 		return
 	}
 	defer conn.Close()
-	
+
 	sql_command := `INSERT INTO users (id, username, firstName, lastName, email, password, phone, userStatus) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`
 	_, err = conn.Exec(sql_command, user.ID, user.Username, user.Firstname, user.Lastname, user.Email, user.Pass, user.Phone, user.Userstatus)
 
