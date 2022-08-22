@@ -16,6 +16,7 @@ func CreateWithArray(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// TODO VALIDATE BODY IS ARRAY
 	err := json.NewDecoder(r.Body).Decode(&users)
 	if err != nil {
 		log.Printf("Erro ao fazer decode do json: %v", err)

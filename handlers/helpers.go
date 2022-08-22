@@ -73,6 +73,7 @@ func IsUserAlreadyRegisted(w http.ResponseWriter, users []models.User) bool {
 	return false
 }
 
+// TODO Join ValidateBody and ValidateBodyArray
 func ValidateBodyArray(w http.ResponseWriter, r *http.Request) (bool, error) {
 	mapBodyValidPatterns := map[string]string{
 		"id":         `"id"?\s*:?\s*\d+`,
